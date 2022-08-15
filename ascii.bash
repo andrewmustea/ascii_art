@@ -1,9 +1,9 @@
 #!/bin/bash
 
-ASCII_ART="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )/art"
+ASCII_ART="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)/art"
 
-if [ -f "$ASCII_ART/jesser.txt" ]; then
-    weneedtocook() {
-        cat "$ASCII_ART/jesser.txt"
-    }
-fi
+for artfile in $(command ls "$ASCII_ART"/*.txt); do
+    name="$(basename "$artfile")"
+    alias "${name%".txt"}"="cat $artfile"
+done
+
