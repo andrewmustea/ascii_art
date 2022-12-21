@@ -1,9 +1,8 @@
 #!/bin/bash
 
-ASCII_ART="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)/art"
-
-for artfile in $(command ls "$ASCII_ART"/*.txt); do
-    name="$(basename "$artfile")"
-    alias "${name%".txt"}"="cat $artfile"
-done
+# create an alias to print each ascii text file in ../art/ using its filename
+while IFS= read -r -d '' file; do
+    name="$(basename "${file}")"
+    alias "${name%".txt"}"="cat ${file}"
+done < <(find "$(dirname "${BASH_SOURCE[0]}")/art" -type f -name "*.txt" -print0)
 
